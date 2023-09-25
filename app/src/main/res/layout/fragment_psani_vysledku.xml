@@ -5,8 +5,8 @@
     android:id="@+id/hahaha"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PsaniVysledkuFragment"
-    android:background="@color/purple_200">
+    android:background="@color/sandy"
+    tools:context=".PsaniVysledkuFragment">
 
     <!-- TODO: Update blank fragment layout -->
 
@@ -14,19 +14,21 @@
         android:id="@+id/Zadani"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text= ""
+        android:text="10*10"
         android:textSize="100sp"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toTopOf="@+id/Vysledek"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/progressBar2" />
 
     <EditText
         android:id="@+id/Vysledek"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="Výsledek"
+        android:textColor="@color/black"
         android:inputType="numberSigned|numberDecimal"
         android:textSize="70sp"
         app:layout_constraintBottom_toTopOf="@+id/Dalsi"
@@ -41,7 +43,7 @@
         android:layout_height="wrap_content"
         android:onClick="ZkontrolujDalsi"
         android:text="Další"
-        android:textColor="#8BC34A"
+        android:theme="@style/MojeTlacitko"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/textView2"
         app:layout_constraintEnd_toEndOf="@+id/Vysledek"
@@ -56,5 +58,17 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Dalsi" />
+
+    <ProgressBar
+        android:id="@+id/progressBar2"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:progress="0"
+        app:layout_constraintBottom_toTopOf="@+id/Zadani"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

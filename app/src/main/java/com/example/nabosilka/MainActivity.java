@@ -3,11 +3,13 @@ package com.example.nabosilka;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.Menu;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.google.android.material.navigation.NavigationView;
@@ -42,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
     int score = 0;
     int pocetprikladu = 0;
     boolean jenomNasobeni;
+    int procenta = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,6 +91,7 @@ public class MainActivity extends AppCompatActivity {
         cisla.clear();
         vybervysledku.clear();
         int pocetNasobku = 0;
+        procenta = 0;
 
         CheckBox checkBox = findViewById(R.id.Nuly);
         if (checkBox.isChecked() == true) {
@@ -193,10 +197,9 @@ public class MainActivity extends AppCompatActivity {
 
         cinitel2 = ThreadLocalRandom.current().nextInt(0, 10);
 // Naplní seznam vybervysledku 4 čísly (Jeden správný výsledek a tři náhodný čísla). A do Stringu prvniPriklad uloží zadání prvního příkladu.
-        if (typyprikladu.get(0) == true) {
+        if (typyprikladu.get(0) == true ||  cinitele1.get(0) == 0) {
             zkouska = cinitele1.get(0) * cinitel2;
             prvniPriklad = (cinitele1.get(0) + " * " + cinitel2);
-            cinitele1.remove(0);
             cinitel2 = ThreadLocalRandom.current().nextInt(0, 11);
             vybervysledku.add(zkouska + "");
             nahoda = ThreadLocalRandom.current().nextInt(0, 101);
@@ -208,11 +211,10 @@ public class MainActivity extends AppCompatActivity {
             Collections.shuffle(vybervysledku);
 
         }
-        if (typyprikladu.get(0) == false) {
+        if (typyprikladu.get(0) == false && cinitele1.get(0) != 0) {
             zkouska = cinitele1.get(0) * cinitel2;
             prvniPriklad = (zkouska + " : " + cinitele1.get(0));
             zkouska = cinitel2;
-            cinitele1.remove(0);
             cinitel2 = ThreadLocalRandom.current().nextInt(0, 11);
             vybervysledku.add(String.valueOf(zkouska));
             nahoda = ThreadLocalRandom.current().nextInt(0, 11);
@@ -224,7 +226,7 @@ public class MainActivity extends AppCompatActivity {
             Collections.shuffle(vybervysledku);
 
         }
-        typyprikladu.remove(0);
+        typyprikladu.remove(0); cinitele1.remove(0);
 // Přidá prvniPriklad do seznamu vyber vysledku
         vybervysledku.add(prvniPriklad);
 // Vytvoří Bundle, který dostaane zprávu vybervysledku, a následně ji přenese do fragmentu vyberVysledkuFragment
@@ -242,6 +244,7 @@ public class MainActivity extends AppCompatActivity {
         cinitele1.clear();
         pocetprikladu = 0;
         score = 0;
+        procenta = 0;
         Button button = findViewById(R.id.Dalsi);
         EditText editText = findViewById(R.id.Vysledek);
         ConstraintLayout a = findViewById(R.id.hahaha);
@@ -353,20 +356,18 @@ public class MainActivity extends AppCompatActivity {
         TextView textView = findViewById(R.id.Zadani);
 //Vytvoří první příklad a do zkoušky uloží správný výsledek příkladu
         cinitel2 = ThreadLocalRandom.current().nextInt(0, 11);
-        if (typyprikladu.get(0) == true) {
+        if (typyprikladu.get(0) == true || cinitele1.get(0) == 0) {
             prvniZadani = (cinitele1.get(0) + " * " + cinitel2);
             zkouska = cinitele1.get(0) * cinitel2;
-            cinitele1.remove(0);
             cinitel2 = ThreadLocalRandom.current().nextInt(0, 11);
         }
-        if (typyprikladu.get(0) == false) {
+        if (typyprikladu.get(0) == false && cinitele1.get(0) != 0) {
             zkouska = cinitele1.get(0) * cinitel2;
             prvniZadani = (zkouska + " : " + cinitele1.get(0));
-            zkouska = cinitel2;
             cinitele1.remove(0);
             cinitel2 = ThreadLocalRandom.current().nextInt(0, 11);
         }
-        typyprikladu.remove(0);
+        typyprikladu.remove(0); cinitele1.remove(0);
 // Vytvoří Bundle a zadá mu zprávu
         Bundle bundle = new Bundle();
         bundle.putString("Zpráva", prvniZadani);
@@ -378,10 +379,20 @@ public class MainActivity extends AppCompatActivity {
 
     public void ZkontrolujDalsi(View view) throws InterruptedException {
 // Tato metoda se spustí po kliknutí na tlačítko další v modu hry, kde uživatel píše výsledek ručně
+        ProgressBar progressBar = findViewById(R.id.progressBar2);
         TextView textView = findViewById(R.id.Zadani);
         Button button = findViewById(R.id.Dalsi);
         EditText editText = findViewById(R.id.Vysledek);
         ConstraintLayout a = findViewById(R.id.hahaha);
+// Pokud uživatel nic nenapsal, zobrazí hlášení, aby něco napsal.
+        if (button.getText().equals("Další") &&  editText.getText().toString().isEmpty() == true){
+            AlertDialog dialog = new AlertDialog.Builder(this)
+                    .setMessage("Aspoň to zkus. Já ti věřím. Něco napiš")
+                    .setPositiveButton("Jasně" , null )
+                    .show();
+            return;
+        }
+
 // Počet příkladů udává kolik příkladů už proběhlo
         pocetprikladu++;
 
@@ -404,13 +415,15 @@ public class MainActivity extends AppCompatActivity {
                 editText.setText("Správně je:" + zkouska);
                 a.setBackgroundResource(R.color.red);
             }
-
+// Zvýší score v progessBaru
+            procenta = procenta + 10;
+            progressBar.setProgress(procenta);
 
             ColorDrawable viewColor = (ColorDrawable) a.getBackground();
             int colorId = viewColor.getColor();
 
             if (colorId == -15753896 || colorId == -65536) {
-                Thread.sleep(1);
+                //Thread.sleep(1);
             }
             //a.setBackgroundResource(R.color.white);
             editText.setText("");
@@ -421,20 +434,18 @@ public class MainActivity extends AppCompatActivity {
             }
 // Zobrazí nový příklad
             if (typyprikladu.size() > 0) {
-                if (typyprikladu.get(0) == true) {
+                if (typyprikladu.get(0) == true || cinitele1.get(0) == 0) {
                     zkouska = cinitele1.get(0) * cinitel2;
                     textView.setText(cinitele1.get(0) + " * " + cinitel2);
-                    cinitele1.remove(0);
                     cinitel2 = ThreadLocalRandom.current().nextInt(0, 11);
                 }
-                if (typyprikladu.get(0) == false) {
+                if (typyprikladu.get(0) == false && cinitele1.get(0) != 0) {
                     zkouska = cinitele1.get(0) * cinitel2;
                     textView.setText(zkouska + " : " + cinitele1.get(0));
                     zkouska = cinitel2;
-                    cinitele1.remove(0);
                     cinitel2 = ThreadLocalRandom.current().nextInt(0, 11);
                 }
-                typyprikladu.remove(0);
+                typyprikladu.remove(0); cinitele1.remove(0);
             }
 
 
@@ -484,8 +495,12 @@ public class MainActivity extends AppCompatActivity {
             } else {
                 a.setBackgroundResource(R.color.red);
             }
-            Thread.currentThread().sleep(2000);
-            a.setBackgroundResource(R.color.white);
+            // Zvýší score v progessBaru
+            ProgressBar progressBar = findViewById(R.id.progressBar);
+            procenta = procenta + 10;
+            progressBar.setProgress(procenta);
+            //Thread.currentThread().sleep(2000);
+            //a.setBackgroundResource(R.color.white);
             textView.setText(score + " z " + pocetprikladu);
             tlacitko1.setTextSize(40);
             tlacitko2.setTextSize(40);
@@ -505,12 +520,15 @@ public class MainActivity extends AppCompatActivity {
             } else {
                 a.setBackgroundResource(R.color.red);
             }
-            Thread.currentThread().sleep(2000);
+            // Zvýší score v progessBaru
+            ProgressBar progressBar = findViewById(R.id.progressBar);
+            procenta = procenta + 10;
+            progressBar.setProgress(procenta);
+            //Thread.currentThread().sleep(2000);
             //a.setBackgroundResource(R.color.white);
-            if (typyprikladu.get(0) == true) {
+            if (typyprikladu.get(0) == true || cinitele1.get(0) == 0) {
                 zkouska = cinitele1.get(0) * cinitel2;
                 textView.setText(cinitele1.get(0) + " * " + cinitel2);
-                cinitele1.remove(0);
                 cinitel2 = ThreadLocalRandom.current().nextInt(0, 11);
                 vybervysledku.add(zkouska + "");
                 nahoda = ThreadLocalRandom.current().nextInt(0, 101);
@@ -529,11 +547,10 @@ public class MainActivity extends AppCompatActivity {
                 tlacitko4.setText(String.valueOf(vybervysledku.get(0)));
                 vybervysledku.remove(0);
             }
-            if (typyprikladu.get(0) == false) {
+            if (typyprikladu.get(0) == false && cinitele1.get(0) != 0) {
                 zkouska = cinitele1.get(0) * cinitel2;
                 textView.setText(zkouska + " : " + cinitele1.get(0));
                 zkouska = cinitel2;
-                cinitele1.remove(0);
                 cinitel2 = ThreadLocalRandom.current().nextInt(0, 11);
                 vybervysledku.add(zkouska + "");
                 nahoda = ThreadLocalRandom.current().nextInt(0, 11);
@@ -552,7 +569,7 @@ public class MainActivity extends AppCompatActivity {
                 tlacitko4.setText(String.valueOf(vybervysledku.get(0)));
                 vybervysledku.remove(0);
             }
-            typyprikladu.remove(0);
+            typyprikladu.remove(0); cinitele1.remove(0);
 
         }
 

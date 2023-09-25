@@ -18,6 +18,28 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
+    <style name="MyCheckBox" parent="Theme.AppCompat.NoActionBar">
+        <item name="colorControlNormal">@color/black</item>   <!-- barva ramecku -->
+        <item name="colorControlActivated">@color/black</item> <!-- barvy pri vybrani -->
+        <item name="android:textColor">@color/black</item> <!-- barva textu -->
+    </style>
+
+    <style name="MojeTlacitko" parent="Theme.AppCompat.NoActionBar">
+        <item name="colorPrimary">@color/purple1000</item>
+        <item name="color">@color/purple1000</item>
+        <item name="colorButtonNormal">@color/purple1000</item>
+        <item name="android:src">@color/purple1000</item>
+        <item name="android:shadowColor">@color/purple1000</item>
+        <item name="android:background">@color/purple1000</item>
+        <item name="colorControlNormal">@color/purple1000</item>   <!-- barva ramecku -->
+        <item name="colorControlActivated">@color/purple1000</item> <!-- barvy pri vybrani -->
+        <item name="android:textColor">@color/white</item> <!-- barva textu -->
+    </style>
+
+    <style name="Mojemenu" parent="Theme.AppCompat.NoActionBar">
+        <item name="colorPrimary">@color/purple1000</item> <!-- barva oznaceneho textu -->
+
+    </style>
 
     <style name="Theme.Nabosilka.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 

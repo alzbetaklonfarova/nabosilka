@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="purple_200">#FFBB86FC</color>
+    <color name="lightred">#F6358A</color>
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>
     <color name="teal_200">#FF03DAC5</color>
@@ -9,4 +10,18 @@
     <color name="white">#FFFFFFFF</color>
     <color name="green">#0F9D58</color>
     <color name="red">#FF0000</color>
+    <color name="purple1000">#7D0552</color>
+    <color name="darkpink">#CA226B</color>
+    <color name="darkorange">#C04000</color>
+    <color name="sandy">#F4A460</color>
+    <color name="valentynred">#E55451</color>
+    <color name="tomato">#FF6347</color>
+    <color name="pastelviolet">#D291BC</color>
+    <color name="pinkbrown">#C48189</color>
+    <color name="pinkcoral">#C48189</color>
+    <color name="zmenim2">#FF6347</color>
+    <color name="zmeni4">#FF6347</color>
+    <color name="zmenim5">#FF6347</color>
+    <color name="ZkousimTo">#FF8D74</color>
+
 </resources>

@@ -5,7 +5,8 @@
     android:id="@+id/hehehe"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".VyberVysledkuFragment">
+    tools:context=".VyberVysledkuFragment"
+    android:background="@color/sandy">
 
     <!-- TODO: Update blank fragment layout -->
 
@@ -16,11 +17,12 @@
         android:layout_height="wrap_content"
         android:text="10*10"
         android:textSize="120sp"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toTopOf="@+id/textView9"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/progressBar" />
 
 
     <TextView
@@ -67,9 +69,12 @@
         android:id="@+id/tlacitko1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:minWidth="130dp"
+        android:minHeight="130dp"
         android:onClick="Dalsi"
         android:text="25"
         android:textSize="80sp"
+        android:theme="@style/MojeTlacitko"
         app:layout_constraintBaseline_toBaselineOf="@+id/textView10"
         app:layout_constraintEnd_toStartOf="@+id/tlacitko2"
         app:layout_constraintHorizontal_bias="0.5"
@@ -79,9 +84,12 @@
         android:id="@+id/tlacitko2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:minWidth="130dp"
+        android:minHeight="130dp"
         android:onClick="Dalsi"
         android:text="35"
         android:textSize="80sp"
+        android:theme="@style/MojeTlacitko"
         app:layout_constraintBaseline_toBaselineOf="@+id/textView10"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -91,9 +99,12 @@
         android:id="@+id/tlacitko3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:minWidth="130dp"
+        android:minHeight="130dp"
         android:onClick="Dalsi"
         android:text="64"
         android:textSize="80sp"
+        android:theme="@style/MojeTlacitko"
         app:layout_constraintBottom_toTopOf="@+id/textView13"
         app:layout_constraintEnd_toStartOf="@+id/tlacitko4"
         app:layout_constraintHorizontal_bias="0.5"
@@ -104,8 +115,11 @@
         android:id="@+id/tlacitko4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:minWidth="130dp"
+        android:minHeight="130dp"
         android:onClick="Dalsi"
         android:text="91"
+        android:theme="@style/MojeTlacitko"
         android:textSize="80sp"
         app:layout_constraintBottom_toTopOf="@+id/textView14"
         app:layout_constraintEnd_toEndOf="parent"
@@ -132,6 +146,18 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/textView13"
         app:layout_constraintTop_toBottomOf="@+id/tlacitko4" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:progress="0"
+        app:layout_constraintBottom_toTopOf="@+id/Priklad"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
